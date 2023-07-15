@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo list</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background-color: rgb(53, 70, 82);
+        }
+
+        .section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ToDo {
+            background-color: rgb(53, 70, 82);
+            width: 700px;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .tasks {
+            margin-left: 25px;
+            margin-top: 20px;
+        }
+
+        .task-box {
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            margin-top: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            color: rgb(251, 252, 156);
+        }
+
+        .rmv-btn-style {
+
+            background-color: rgb(218, 218, 243);
+            color: black;
+
+        }
+
+        p {
+            margin-top: 20px;
+            font-size: 170%;
+            margin-left: 5px;
+            color: rgb(139, 218, 255);
+        }
+
+        button {
+            border-radius: 10px;
+            border: none;
+            width: 40px;
+            height: 25px;
+            margin-left: 5px;
+            color: bisque;
+        }
+
+        input {
+            height: 40px;
+            width: 450px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 3px 3px 10px 2px rgb(134, 145, 156);
+            font-size: 100%;
+            background-color: aliceblue;
+        }
+
+        .btn {
+            height: 40px;
+            width: 65px;
+            background-color: rgb(207, 154, 248);
+            box-shadow: 3px 3px 10px 2px rgb(134, 145, 156);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="section">
+        <div class="ToDo">
+            <br>
+            <h1>My ToDo List</h1>
+            <div class="my-task">
+                <div class="task-box">
+                    <input type="text" id="input-box" placeholder="Enter a Task...">
+                    <button id="add-button" class="btn">Add</button>
+                </div>
+                <br>
+                <div class="tasks" id="task"> </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let addToDoButton = document.getElementById('add-button');
+        let ToDocontainer = document.getElementById('task');
+        let inputField = document.getElementById('input-box');
+
+        addToDoButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (inputField.value == ""){
+        return;
+    }  
+
+            var list = document.createElement('p')
+            list.classList.add('list-styling')
+
+            list.textContent = inputField.value;
+            ToDocontainer.appendChild(list);
+            var removeButton = document.createElement('button')
+            removeButton.classList.add('rmv-btn-style')
+            removeButton.textContent = "Done"
+            ToDocontainer.appendChild(removeButton)
+            var dltBtn = document.createElement('button')
+            dltBtn.classList.add = ('dlt-btn')
+            dltBtn.textContent = "Delete"
+            dltBtn.style.background = "bisque"
+            dltBtn.style.color = "black"
+            ToDocontainer.appendChild(dltBtn)
+            inputField.value = "";
+            localStorage.setItem("list",ToDocontainer.innerHTML);
+            removeButton.addEventListener('click', function () {
+                list.style.textDecoration = "line-through"
+                removeButton.style.color = "black"
+                removeButton.style.background = "rgb(127, 228, 200)"
+
+            })
+            dltBtn.addEventListener('click', function () {
+                ToDocontainer.removeChild(list);
+                ToDocontainer.removeChild(removeButton);
+                ToDocontainer.removeChild(dltBtn)
+                ToDocontainer.innerHTML = localStorage.getItem("list");
+            })
+        })
+    </script>
+</body>
+
+</html>
